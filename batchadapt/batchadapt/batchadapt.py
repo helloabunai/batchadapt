@@ -166,10 +166,10 @@ class BatchAdapt:
 			if given_arg[1]: return ['--discard-untrimmed']
 			else: return [0,0,0]
 		if given_arg[0] == 'fwfiveprime': return [0,0,0]
-		if given_arg[0] == 'overlap': return ['-O', str(given_arg[1])]
+		if given_arg[0] == 'overlap': return ['-O', str(given_arg[1][0])]
 		if given_arg[0] == 'rvthreeprime': return [0,0,0]
 		if given_arg[0] == 'fwthreeprime': return [0,0,0]
-		if given_arg[0] == 'errorrate': return ['-e', str(given_arg[1])]
+		if given_arg[0] == 'errorrate': return ['-e', str(given_arg[1][0])]
 		if given_arg[0] == 'input': return [0,0,0]
 		if given_arg[0] == 'output': return [0,0,0]
 		if given_arg[0] == 'discardtrimmed':
@@ -223,7 +223,6 @@ class BatchAdapt:
 				cutadapt_subprocess.wait()
 		else:
 			log.error('{}{}{}{}'.format(clr.red,'adpt__ ',clr.end,'Haha not implemented yet. use -v'))
-
 
 def main():
 	try:
