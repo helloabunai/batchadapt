@@ -63,8 +63,6 @@ class BatchAdapt:
 		self.parser.add_argument('-min', '--minlength', help='Discard trimmed reads shorter than <length>.', nargs=1, type=int, default='0')
 		self.parser.add_argument('-max', '--maxlength', help='Discard trimmed reads longer than <length>.', nargs=1, type=check_positive, default='999999')
 		self.parser.add_argument('-u', '--cut', help='Remove <length> bases from beginning/end of a read. >0 values removes from beginning. <0 values, remove from end.', nargs=1, type=int, default=0)
-		## Misc arguments
-		self.parser.add_argument('-q', '--quiet', help='Prevents the writing of a report file at the end of processing.', action='store_true')
 		self.args = self.parser.parse_args()
 
 		##
@@ -169,7 +167,6 @@ class BatchAdapt:
 			else: return [0,0,0]
 		if given_arg[0] == 'fwfiveprime': return [0,0,0]
 		if given_arg[0] == 'overlap': return ['-O', str(given_arg[1])]
-		if given_arg[0] == 'quiet': return [0,0,0] ##todo stdout..etc..
 		if given_arg[0] == 'rvthreeprime': return [0,0,0]
 		if given_arg[0] == 'fwthreeprime': return [0,0,0]
 		if given_arg[0] == 'errorrate': return ['-e', str(given_arg[1])]
