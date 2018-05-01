@@ -249,8 +249,7 @@ class BatchAdapt:
 				cutadapt_command.append(curr_file)
 				## run command
 
-				report_outfi = open(report_output, 'w')
-				cutadapt_subprocess = subprocess.Popen(cutadapt_command, stdout=report_outfi, stderr=subprocess.PIPE)
+				cutadapt_subprocess = subprocess.Popen(cutadapt_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 				cutadapt_subprocess.wait()
 
 def main():
