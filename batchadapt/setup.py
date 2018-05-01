@@ -13,7 +13,7 @@ setup(
     name='BatchAdapt',
 
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.1',
+    version='0.2',
 
     description='Wrapper for easily running cutadapt in batch from a CLI.',
     long_description=long_description,
@@ -34,30 +34,27 @@ setup(
 	# 3 - Alpha
 	# 4 - Beta
 	# 5 - Stable
-    classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+	classifiers=[
+		'Development Status :: 2 - Pre-Alpha',
 
-        # Indicate who your project is intended for
-        'Intended Audience :: Academic Researchers',
-		'Intended Audience :: End User/Desktop',
-        'Topic :: Data Generation',
-		'Topic :: Genetic Sequences',
+		# Indicate who your project is intended for
+		'Intended Audience :: Education',
+		'Intended Audience :: End Users/Desktop',
+		'Intended Audience :: Science/Research',
 
-        # Classifier matching license flag from above
-        'License :: GPLv3 :: GPLv3 License',
+		# Classifier matching license flag from above
+		'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
 
 		# Specific version of the python interpreter that are supported
 		# by this package. Python 3 not support at this time.
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
+		'Programming Language :: Python :: 2.6',
+		'Programming Language :: Python :: 2.7',
 
 		## And so on
-        'Environment :: Console',
-		'Operating System :: MacOS :: MacOS X 10.8'
-		'Operating System :: MacOS :: MacOS X 10.9'
-		'Operating System :: MacOS :: MacOS X 10.10'
+		'Environment :: Console',
+		'Operating System :: MacOS :: MacOS X',
 		'Operating System :: POSIX'
-    ],
+	],
 
     # What does the project relate to?
     keywords='Cutadapt Demultiplexing FastQ Sequences Batch',

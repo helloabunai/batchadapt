@@ -1,5 +1,5 @@
 #/usr/bin/python
-__version__ = 0.1
+__version__ = 0.2
 __author__ = 'alastair.maxwell@glasgow.ac.uk'
 
 ##
@@ -222,7 +222,36 @@ class BatchAdapt:
 				cutadapt_subprocess = subprocess.Popen(cutadapt_command, stdout=report_outfi, stderr=subprocess.PIPE)
 				cutadapt_subprocess.wait()
 		else:
-			log.error('{}{}{}{}'.format(clr.red,'adpt__ ',clr.end,'Haha not implemented yet. use -v'))
+			for i in range(0, len(self.input_files)):
+				curr_file = self.input_files[i]; curr_root = self.input_files[i].split('/')[-1].split('.')[0]
+				curr_suffix = curr_root.split('_')[-1]
+
+				## adapter and command to use
+				command = None; adapter = None
+				if curr_suffix == 'R1': command = self.forward_command; adapter = self.forward_adapter[0]
+				if curr_suffix == 'R2': command = self.reverse_command; adapter = self.reverse_adapter[0]
+
+				## command to build upon with arguments
+				cutadapt_command = ['cutadapt', command, adapter]
+				for arg in vars(self.args):
+					arg_command = self.lookup_command([arg, getattr(self.args, arg)])
+					if len(arg_command) == 1: cutadapt_command.append(arg_command[0])
+					elif len(arg_command) == 2: cutadapt_command.append(arg_command[0]); cutadapt_command.append(arg_command[1])
+					elif len(arg_command) > 2: pass
+
+				## add output
+				outfi = 'DMPX_' + curr_file.split('/')[-1].split('.')[0] + '.fastq'
+				reportfi = curr_file.split('/')[-1].split('.')[0]+'_REPORT.txt'
+				target_output = os.path.join(self.args.output[0], outfi)
+				report_output = os.path.join(self.args.output[0], reportfi)
+				cutadapt_command.append('--output'); cutadapt_command.append(target_output)
+				## add input
+				cutadapt_command.append(curr_file)
+				## run command
+
+				report_outfi = open(report_output, 'w')
+				cutadapt_subprocess = subprocess.Popen(cutadapt_command, stdout=report_outfi, stderr=subprocess.PIPE)
+				cutadapt_subprocess.wait()
 
 def main():
 	try:
