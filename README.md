@@ -1,3 +1,5 @@
+# batchadapt
+
 A minimal wrapper for running cutadapt (http://cutadapt.readthedocs.io/en/stable/) in batch mode. Made for the Monckton Group at University of Glasgow, so there may be specific behaviour in this program for the way in which we label our MiSeq data. I honestly can't remember.
 
 Install
