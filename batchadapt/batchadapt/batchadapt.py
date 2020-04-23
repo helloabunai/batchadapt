@@ -54,7 +54,7 @@ class batchadapt:
 		rv_group.add_argument('-rvfp', '--rvfiveprime', help='REVERSE sequence of a 5\' adapter.', nargs=1, type=str)
 		rv_group.add_argument('-rvap', '--rvanyprime', help='REVERSE sequence of an adapter ligated to either 3\' or 5\' end of a read.', nargs=1, type=str)
 		## Quality arguments
-		self.parser.add_argument('-e', '--errorrate', help='Maximum allowed error rate. I.e. num of errors over the length of a matching region. [0]', nargs=1, default='0', type=int)
+		self.parser.add_argument('-e', '--errorrate', help='Maximum allowed error rate. I.e. num of errors over the length of a matching region. [0.1]', nargs=1, default='0.1', type=float)
 		self.parser.add_argument('-ni', '--noindels', help='Do not allow indels in any alignments -- only mismatches). Only works on anchored adapters.', action='store_true')
 		self.parser.add_argument('-ov', '--overlap', help='Minimum overlap length. [10]', nargs=1, default='10', type=int)
 		## Read arguments
@@ -107,7 +107,6 @@ class batchadapt:
 		if self.args.rvanyprime: self.reverse_command = '-b'; self.reverse_adapter = self.args.rvanyprime
 
 	def check_io(self, raise_exception = False):
-
 
 		## check input path exists
 		if os.path.lexists(self.args.input[0]):
@@ -166,10 +165,10 @@ class batchadapt:
 			if given_arg[1]: return ['--discard-untrimmed']
 			else: return [0,0,0]
 		if given_arg[0] == 'fwfiveprime': return [0,0,0]
-		if given_arg[0] == 'overlap': return ['-O', str(given_arg[1])]
+		if given_arg[0] == 'overlap': return ['-O', str(given_arg[1][0])]
 		if given_arg[0] == 'rvthreeprime': return [0,0,0]
 		if given_arg[0] == 'fwthreeprime': return [0,0,0]
-		if given_arg[0] == 'errorrate': return ['-e', str(given_arg[1])]
+		if given_arg[0] == 'errorrate': return ['-e', str(given_arg[1][0])]
 		if given_arg[0] == 'input': return [0,0,0]
 		if given_arg[0] == 'output': return [0,0,0]
 		if given_arg[0] == 'discardtrimmed':
@@ -219,7 +218,7 @@ class batchadapt:
 				## run command
 
 				report_outfi = open(report_output, 'w')
-				cutadapt_subprocess = subprocess.Popen(cutadapt_command, stdout=report_outfi, stderr=subprocess.PIPE)
+				cutadapt_subprocess = subprocess.Popen((cutadapt_command), stdout=report_outfi, stderr=subprocess.PIPE)
 				cutadapt_subprocess.wait()
 		else:
 			for i in range(0, len(self.input_files)):
@@ -249,7 +248,7 @@ class batchadapt:
 				cutadapt_command.append(curr_file)
 				## run command
 
-				cutadapt_subprocess = subprocess.Popen(cutadapt_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+				cutadapt_subprocess = subprocess.Popen((cutadapt_command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 				cutadapt_subprocess.wait()
 
 def main():
