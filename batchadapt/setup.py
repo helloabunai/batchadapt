@@ -11,7 +11,7 @@ with open(path.join(here, '', 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='BatchAdapt',
-    version='0.3',
+    version='0.3.1',
     python_requires='>3.7',
     description='Dynamic multi-loci/multi-repeat tract microsatellite reference sequence generator',
     long_description=long_description,
